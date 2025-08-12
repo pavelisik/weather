@@ -11,11 +11,53 @@ h2 {
 }
 
 .city {
-    width: 80%;
-    padding: 8px;
+    width: 100%;
+    padding: 8px 12px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    outline: none;
+}
+
+.city:focus,
+.city:active {
+    border-color: #cccccc;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.suggestions {
+    position: absolute;
+    top: calc(100% - 15px);
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: #fff;
+    border: 1px solid #cccccc;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+}
+
+.suggestions li {
+    background-color: #ffffff;
+    text-align: left;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.suggestions li:last-child {
+    padding-bottom: 8px;
+}
+
+.suggestions li:hover {
+    background-color: #f1f1f1;
 }
 
 button {
@@ -31,4 +73,10 @@ button {
 
 button:hover {
     background-color: #000000;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    margin-top: 4px;
 }
