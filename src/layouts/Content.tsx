@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useWeather from '../hooks/useWeather';
 import MainForm from '../components/MainForm';
+import WeatherInfoBlock from '../components/WeatherInfoBlock';
 import styles from './Content.module.css';
 
 const Content = () => {
@@ -15,15 +16,9 @@ const Content = () => {
                 </div>
             </div>
             <div className={styles.rightColumn}>
-                {weatherLoading && <p>Загрузка...</p>}
-                {weatherError && <p className={styles.error}>{weatherError}</p>}
-                {weather && (
-                    <div className={styles.weatherInfo}>
-                        <h3>{weather.name}</h3>
-                        <p>{weather.main.temp} °C</p>
-                        <p>{weather.weather[0].description}</p>
-                    </div>
-                )}
+                <div className={styles.block}>
+                    <WeatherInfoBlock weather={weather} loading={weatherLoading} error={weatherError} />
+                </div>
             </div>
         </div>
     );

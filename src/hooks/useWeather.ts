@@ -22,7 +22,9 @@ const useWeather = (city?: string, lat?: number, lon?: number) => {
             .then((data) => {
                 if (data) setWeather(data);
             })
-            .catch(() => setError('Не удалось загрузить'))
+            .catch((err: any) => {
+                setError(err.message || 'Не удалось загрузить');
+            })
             .finally(() => setLoading(false));
     }, [city, lat, lon]);
 

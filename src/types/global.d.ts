@@ -28,3 +28,7 @@ declare module '*.module.scss' {
 /* Глобальные CSS и SCSS (не как модули) */
 declare module '*.css';
 declare module '*.scss';
+
+declare module 'translit-rus-eng' {
+    export default function translitRusEng(input: string, reverse?: boolean): string;
+}

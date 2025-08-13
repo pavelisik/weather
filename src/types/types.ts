@@ -146,4 +146,10 @@ export interface Weather {
     id: number;
     name: string;
     cod: number;
+    rain?: {
+        '1h': number;
+    };
+    snow?: {
+        '1h': number;
+    };
 }

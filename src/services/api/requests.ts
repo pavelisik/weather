@@ -11,17 +11,36 @@ const suggestionAPI = axios.create({
     baseURL: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
 });
 
-const handleAxiosError = (error: unknown) => {
+const handleAxiosError = (error: unknown): string => {
     if (axios.isAxiosError(error)) {
         if (error.response) {
+            const status = error.response.status;
             console.error('Ошибка API:', error.response.data.message);
+
+            switch (status) {
+                case 400:
+                    return `Неверный запрос`;
+                case 401:
+                    return `Ошибка авторизации`;
+                case 404:
+                    return `Город не найден`;
+                case 429:
+                    return `Слишком много запросов`;
+                case 500:
+                    return `Внутренняя ошибка сервера`;
+                default:
+                    return `Ошибка ${status}`;
+            }
         } else {
             console.error('Ошибка API:', error.message);
+            return error.message;
         }
     } else if (error instanceof Error) {
         console.error('Неожиданная ошибка:', error.message);
+        return error.message;
     } else {
         console.error('Произошла неизвестная ошибка.');
+        return 'Произошла неизвестная ошибка.';
     }
 };
 
@@ -51,7 +70,8 @@ export const getWeather = async (city?: string, lat?: number, lon?: number): Pro
         const res = await weatherAPI.get<Weather>('', { params });
         return res.data;
     } catch (error) {
-        handleAxiosError(error);
+        throw new Error(handleAxiosError(error));
+        // throw error;
     }
 };
 

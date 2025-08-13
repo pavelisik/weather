@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import useSuggestions from '../hooks/useSuggestions';
 import useClickOutside from '../hooks/useClickOutside';
 import CitySuggestions from './CitySuggestions';
+import { showWarning } from '../utils/toast';
 import styles from './MainForm.module.css';
 
 interface CityForm {
@@ -23,9 +24,7 @@ const MainForm = ({ onCitySelect }: MainFormProps) => {
         clearErrors,
         formState: { errors },
     } = useForm<CityForm>({
-        defaultValues: {
-            city: '',
-        },
+        defaultValues: { city: '' },
         mode: 'onSubmit',
     });
 
@@ -60,9 +59,16 @@ const MainForm = ({ onCitySelect }: MainFormProps) => {
         reset();
     };
 
+    // вывод ошибок обработки формы
+    const onError = (formErrors: typeof errors) => {
+        if (formErrors.city) {
+            showWarning(formErrors.city.message || 'Ошибка');
+        }
+    };
+
     return (
         <div className={styles.mainForm}>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
+            <form onSubmit={handleSubmit(onSubmit, onError)} noValidate autoComplete="off">
                 {/* <h2>Введите название города</h2> */}
                 <div className={styles.inputWrapper} ref={wrapperRef}>
                     <input
@@ -83,9 +89,9 @@ const MainForm = ({ onCitySelect }: MainFormProps) => {
                         <CitySuggestions suggestions={suggestions} onSelect={handleSelect} />
                     )}
                 </div>
-                <button type="submit">Показать погоду</button>
-                {/* вывод ошибок формы (потом переделаю на всплывающие окошки) */}
-                {errors.city && <p className={styles.error}>{errors.city.message}</p>}
+                <button type="submit" className={styles.submit}>
+                    Показать погоду
+                </button>
             </form>
         </div>
     );
