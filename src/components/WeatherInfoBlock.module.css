@@ -1,4 +1,11 @@
+.weatherInfo {
+    position: relative;
+}
+
 .iconWrapper {
+    position: absolute;
+    top: 0px;
+    right: 0px;
     background: #7eaaae;
     border-radius: 12px;
     display: inline-flex;

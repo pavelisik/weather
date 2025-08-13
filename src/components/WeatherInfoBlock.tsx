@@ -1,6 +1,7 @@
 import translitRusEng from 'translit-rus-eng';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import { YMaps, Map, Placemark } from '@iminside/react-yandex-maps';
 import style from './WeatherInfoBlock.module.css';
 import type { Weather } from '../types/types';
 
@@ -29,6 +30,14 @@ const WeatherInfoBlock = ({ weather, loading, error }: WeatherInfoBlockProps) =>
     // дата и время на момент получения данных
     const formattedDateTime = weather ? format(new Date(weather.dt * 1000), 'd MMMM, HH:mm', { locale: ru }) : null;
 
+    const WeatherMap = ({ lat, lon }: { lat: number; lon: number }) => (
+        <YMaps>
+            <Map defaultState={{ center: [lat, lon], zoom: 10 }} width="100%" height="300px">
+                <Placemark geometry={[lat, lon]} />
+            </Map>
+        </YMaps>
+    );
+
     return (
         <>
             {loading && <p>Загрузка...</p>}
@@ -37,27 +46,20 @@ const WeatherInfoBlock = ({ weather, loading, error }: WeatherInfoBlockProps) =>
                 <div className={style.weatherInfo}>
                     <h3>Погода в городе {translitIfLatin(weather.name)} сейчас</h3>
                     <p>Дата и время расчета данных: {formattedDateTime}</p>
-                    <p>Температура: {formatNumberWithSign(Math.round(weather.main.temp))} °C</p>
-                    <p>Температура по ощущению: {formatNumberWithSign(Math.round(weather.main.feels_like))} °C</p>
+                    <p>{weather.weather[0].description}</p>
+                    <p>{formatNumberWithSign(Math.round(weather.main.temp))} °C</p>
+                    <p>По ощущению: {formatNumberWithSign(Math.round(weather.main.feels_like))} °C</p>
                     <p>Ветер: {Math.round(weather.wind.speed * 10) / 10} м/с</p>
                     <p>Давление: {hPaToMmHg(weather.main.pressure)} мм рт. ст.</p>
                     <p>Влажность: {weather.main.humidity} %</p>
-                    <p>Описание: {weather.weather[0].description}</p>
+
                     <div className={style.iconWrapper}>
                         <img src={`${iconUrl}${weather.weather['0'].icon}@2x.png`} />
                     </div>
                     {weather.rain && <p>Осадки: {weather.rain['1h']} мм/ч</p>}
                     {weather.snow && <p>Снег: {weather.snow['1h']} мм/ч</p>}
 
-                    <div style={{ width: '100%', height: '300px' }}>
-                        <iframe
-                            title="Яндекс.Карта"
-                            src={`https://yandex.ru/map-widget/v1/?ll=${weather.coord.lon},${weather.coord.lat}&z=10&source=constructor`}
-                            width="100%"
-                            height="100%"
-                            frameBorder="0"
-                        ></iframe>
-                    </div>
+                    {weather && <WeatherMap lat={weather.coord.lat} lon={weather.coord.lon} />}
 
                     {/* <p>Идентификатор погодных условий: {weather.weather['0'].id}</p>
                     <p>Группа погодных параметров (Дождь, Снег, Облачность и т. д.): {weather.weather['0'].main}</p>
