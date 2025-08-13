@@ -2,24 +2,19 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import styles from './MainForm.module.css';
+import type { Suggestion } from '../types/types';
 
 interface CityForm {
     city: string;
 }
 
-interface Suggestion {
-    value: string;
-    data: {
-        city: string;
-        region: string;
-        region_type: string;
-        region_with_type: string;
-    };
-}
-
 // данные для API автокомплита
 const suggestionUrl = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
 const suggestionToken = '038cf03c0fcdeaf71d01807fc055484d186fdf0e';
+
+// данные для API openweather
+const openweatherUrl = 'https://api.openweathermap.org/data/2.5/weather';
+const openweatherKey = '0fea97d4acece8a4418f2876d03b4419';
 
 // минимальное число вводимых символов для срабатывания автокомплита
 const minInputSymbols = 2;
@@ -37,12 +32,14 @@ const MainForm = () => {
         },
     });
 
+    const [weather, setWeather] = useState<{ temp: number; description: string } | null>(null);
+    const [error, setError] = useState('');
+
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     // запрос на поиск подсказок для автокомплита
     const fetchSuggestions = async (query: string) => {
-        // если ничего не введено или если введено меньше 2 символов - обнуляем массив с подсказками
         const trimmedQuery = query.trim();
         if (trimmedQuery.length < minInputSymbols) {
             setSuggestions([]);
@@ -71,20 +68,43 @@ const MainForm = () => {
         }
     };
 
-    // функция изменения текста в input
+    const fetchWeather = async (city: string) => {
+        try {
+            setError('');
+            setWeather(null);
+
+            const res = await axios.get(openweatherUrl, {
+                params: {
+                    q: `${city},RU`, // название города на кириллице + код страны
+                    units: 'metric',
+                    lang: 'ru',
+                    appid: openweatherKey,
+                },
+            });
+
+            setWeather({
+                temp: res.data.main.temp,
+                description: res.data.weather[0].description,
+            });
+        } catch (err) {
+            setError('Город не найден или ошибка запроса');
+        }
+    };
+
+    // изменение текста в input
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = e.target.value;
         setValue('city', val);
         fetchSuggestions(val);
     };
 
-    // функция выбора подсказки из автокомплита
+    // выбор подсказки из автокомплита
     const handleSelect = (city: string) => {
         setValue('city', city);
         setSuggestions([]);
     };
 
-    // функция при фокусе на input
+    // фокус на input
     const handleFocus = () => {
         const currentVal = getValues('city');
         if (currentVal.trim().length >= minInputSymbols) {
@@ -108,6 +128,8 @@ const MainForm = () => {
     // отправка значения при нажатии на кнопку
     const onSubmit: SubmitHandler<CityForm> = async (data) => {
         console.log(`Погода для города ${data.city}`);
+        fetchWeather(data.city);
+        console.log(weather);
     };
 
     return (
@@ -131,7 +153,8 @@ const MainForm = () => {
                         <ul className={styles.suggestions} role="listbox">
                             {suggestions.map(({ data }, index) => (
                                 <li key={index} onClick={() => handleSelect(data.city)} role="option">
-                                    {data.city} ({data.region_with_type})
+                                    {data.city}
+                                    <span>{data.region_with_type}</span>
                                 </li>
                             ))}
                         </ul>

@@ -60,6 +60,12 @@ h2 {
     background-color: #f1f1f1;
 }
 
+.suggestions li span {
+    opacity: 0.5;
+    padding-left: 8px;
+    font-size: 0.9rem;
+}
+
 button {
     background-color: #3b3939;
     color: #fff;
