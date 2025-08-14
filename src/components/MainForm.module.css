@@ -11,22 +11,37 @@ h2 {
 }
 
 .city {
+    color: #333;
+    background: #f7f7f7;
+    height: 64px;
+    line-height: 40px;
     width: 100%;
-    padding: 8px 12px;
-    margin-bottom: 10px;
-    border: 1px solid #dbdbdb;
-    border-radius: 6px;
+    padding: 0 20px;
+    border-radius: 12px;
+    border: none;
     outline: none;
+    transition: background 0.3s;
 }
 
+.city:hover,
 .city:focus,
 .city:active {
-    border-color: #cccccc;
+    box-shadow: 0 0 0 1px #0000000a, 0 4px 4px #0000000a, 0 20px 40px #00000014;
+    background: #ffffff;
+}
+
+.withSuggestions {
+    z-index: 1002;
+    border-radius: 12px 12px 0 0;
+    background: #ffffff;
+    box-shadow: 0 0 0 1px #0000000a, 0 4px 4px #0000000a, 0 20px 40px #00000014;
+    /* box-shadow: 0 1px 0 0 #0000000a, 0 4px 4px #0000000a, 0 20px 40px #00000014;  */
 }
 
 .inputWrapper {
     position: relative;
     width: 100%;
+    height: 100%;
 }
 
 .submit {
@@ -34,9 +49,9 @@ h2 {
     color: #fff;
     padding: 8px 12px;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
-    margin: 10px;
+    margin-top: 20px;
     transition: background-color 0.3s ease;
 }
 

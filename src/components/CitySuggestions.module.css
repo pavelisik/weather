@@ -1,13 +1,14 @@
 .suggestions {
     position: absolute;
-    top: calc(100% - 15px);
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 1001;
+    color: #333;
     background: #fff;
-    border: 1px solid #cccccc;
     border-top: none;
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 0 1px #0000000a, 0 4px 4px #0000000a, 0 20px 40px #00000014;
+    /* box-shadow: 0 4px 4px #0000000a, 0 20px 40px #00000014; */
     padding: 0;
     overflow: hidden;
     list-style: none;
@@ -16,17 +17,18 @@
 .suggestions li {
     background-color: #ffffff;
     text-align: left;
-    padding: 5px 12px;
+    line-height: 44px;
+    padding: 0 20px;
     cursor: pointer;
     transition: background-color 0.15s ease-in-out;
 }
 
 .suggestions li:last-child {
-    padding-bottom: 8px;
+    padding-bottom: 7px;
 }
 
 .suggestions li:hover {
-    background-color: #f1f1f1;
+    background-color: #f7f7f7;
 }
 
 .suggestions li span {

@@ -62,7 +62,7 @@ export const getWeather = async (city?: string, lat?: number, lon?: number): Pro
             appid: weatherKey,
         };
         if (city) {
-            params.q = `${city},RU`;
+            params.q = `${city}`;
         } else if (lat !== undefined && lon !== undefined) {
             params.lat = lat;
             params.lon = lon;
@@ -71,7 +71,6 @@ export const getWeather = async (city?: string, lat?: number, lon?: number): Pro
         return res.data;
     } catch (error) {
         throw new Error(handleAxiosError(error));
-        // throw error;
     }
 };
 

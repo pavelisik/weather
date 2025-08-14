@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState, useRef } from 'react';
 import useSuggestions from '../hooks/useSuggestions';
@@ -10,11 +11,17 @@ interface CityForm {
     city: string;
 }
 
-interface MainFormProps {
-    onCitySelect: (city: string) => void;
+interface Coords {
+    lat: number;
+    lon: number;
 }
 
-const MainForm = ({ onCitySelect }: MainFormProps) => {
+interface MainFormProps {
+    onCitySelect: (city: string) => void;
+    onCoordsSelect: (coords: Coords | null) => void;
+}
+
+const MainForm = ({ onCitySelect, onCoordsSelect }: MainFormProps) => {
     const {
         register,
         handleSubmit,
@@ -55,6 +62,7 @@ const MainForm = ({ onCitySelect }: MainFormProps) => {
 
     // отправка значения при нажатии на кнопку и сброс формы
     const onSubmit: SubmitHandler<CityForm> = (data) => {
+        onCoordsSelect(null);
         onCitySelect(data.city);
         reset();
     };
@@ -69,11 +77,11 @@ const MainForm = ({ onCitySelect }: MainFormProps) => {
     return (
         <div className={styles.mainForm}>
             <form onSubmit={handleSubmit(onSubmit, onError)} noValidate autoComplete="off">
-                {/* <h2>Введите название города</h2> */}
+                <h2>Поиск по названию города</h2>
                 <div className={styles.inputWrapper} ref={wrapperRef}>
                     <input
                         type="text"
-                        className={styles.city}
+                        className={clsx(styles.city, isOpen && suggestions.length > 0 && styles.withSuggestions)}
                         {...register('city', { required: 'Введите название города' })}
                         placeholder="Введите название города"
                         onFocus={handleFocus}
@@ -85,9 +93,7 @@ const MainForm = ({ onCitySelect }: MainFormProps) => {
                         aria-invalid={!!errors.city}
                     />
                     {/* вывод автокомплита */}
-                    {isOpen && suggestions.length > 0 && (
-                        <CitySuggestions suggestions={suggestions} onSelect={handleSelect} />
-                    )}
+                    {isOpen && suggestions.length > 0 && <CitySuggestions suggestions={suggestions} onSelect={handleSelect} />}
                 </div>
                 <button type="submit" className={styles.submit}>
                     Показать погоду

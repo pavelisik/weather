@@ -1,0 +1,20 @@
+.favoritesList {
+    text-align: left;
+    padding: 0px;
+}
+
+.favoritesList li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.favoritesList li:hover {
+    color: olive;
+}
+
+.close {
+    cursor: pointer;
+    border: none;
+}

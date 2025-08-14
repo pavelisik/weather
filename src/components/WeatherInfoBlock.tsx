@@ -1,42 +1,30 @@
-import translitRusEng from 'translit-rus-eng';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import { YMaps, Map, Placemark } from '@iminside/react-yandex-maps';
+import FavoritesButton from './FavoritesButton';
+import WeatherMap from './WeatherMap';
+import { translitIfLatin, numberPlus, hPaConvert } from '../utils/utils';
 import style from './WeatherInfoBlock.module.css';
 import type { Weather } from '../types/types';
+
+interface CityInStorage {
+    name: string;
+    lat: number;
+    lon: number;
+}
 
 interface WeatherInfoBlockProps {
     weather: Weather | null;
     loading: boolean;
     error: string | null;
+    favoriteCities: CityInStorage[];
+    setFavoriteCities: (cities: CityInStorage[]) => void;
 }
 
-function translitIfLatin(word: string) {
-    const isLatin = /^[A-Za-z\s-]+$/.test(word);
-    return isLatin ? translitRusEng(word, true) : word;
-}
+const iconUrl = 'https://openweathermap.org/img/wn/';
 
-function formatNumberWithSign(num: number) {
-    return num >= 0 ? `+${num}` : `${num}`;
-}
-
-function hPaToMmHg(hPa: number) {
-    return Math.round(hPa * 0.750062);
-}
-
-const WeatherInfoBlock = ({ weather, loading, error }: WeatherInfoBlockProps) => {
-    const iconUrl = 'https://openweathermap.org/img/wn/';
-
+const WeatherInfoBlock = ({ weather, loading, error, favoriteCities, setFavoriteCities }: WeatherInfoBlockProps) => {
     // дата и время на момент получения данных
     const formattedDateTime = weather ? format(new Date(weather.dt * 1000), 'd MMMM, HH:mm', { locale: ru }) : null;
-
-    const WeatherMap = ({ lat, lon }: { lat: number; lon: number }) => (
-        <YMaps>
-            <Map defaultState={{ center: [lat, lon], zoom: 10 }} width="100%" height="300px">
-                <Placemark geometry={[lat, lon]} />
-            </Map>
-        </YMaps>
-    );
 
     return (
         <>
@@ -45,12 +33,19 @@ const WeatherInfoBlock = ({ weather, loading, error }: WeatherInfoBlockProps) =>
             {weather && (
                 <div className={style.weatherInfo}>
                     <h3>Погода в городе {translitIfLatin(weather.name)} сейчас</h3>
+                    <FavoritesButton
+                        city={translitIfLatin(weather.name)}
+                        latC={weather.coord.lat}
+                        lonC={weather.coord.lon}
+                        favoriteCities={favoriteCities}
+                        setFavoriteCities={setFavoriteCities}
+                    />
                     <p>Дата и время расчета данных: {formattedDateTime}</p>
                     <p>{weather.weather[0].description}</p>
-                    <p>{formatNumberWithSign(Math.round(weather.main.temp))} °C</p>
-                    <p>По ощущению: {formatNumberWithSign(Math.round(weather.main.feels_like))} °C</p>
+                    <p>{numberPlus(Math.round(weather.main.temp))} °C</p>
+                    <p>По ощущению: {numberPlus(Math.round(weather.main.feels_like))} °C</p>
                     <p>Ветер: {Math.round(weather.wind.speed * 10) / 10} м/с</p>
-                    <p>Давление: {hPaToMmHg(weather.main.pressure)} мм рт. ст.</p>
+                    <p>Давление: {hPaConvert(weather.main.pressure)} мм рт. ст.</p>
                     <p>Влажность: {weather.main.humidity} %</p>
 
                     <div className={style.iconWrapper}>
