@@ -1,0 +1,36 @@
+.mainForm {
+}
+
+.inputWrapper {
+    position: relative;
+}
+
+.city {
+    color: #333;
+    background: #f7f7f7;
+    height: 64px;
+    line-height: 40px;
+    width: 100%;
+    padding: 0 20px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.withSuggestions,
+.city:hover,
+.city:focus,
+.city:active {
+    box-shadow: 0 0 0 1px #0000000a, 0 4px 4px #0000000a, 0 20px 40px #00000014;
+    background: #ffffff;
+}
+
+.withSuggestions {
+    border-radius: 12px 12px 0 0;
+}
+
+.mainButton {
+    margin-top: 25px;
+    width: 400px;
+}

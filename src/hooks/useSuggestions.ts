@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { postSuggestions } from '../services/api/requests';
-import type { Suggestion } from '../types/types';
+import { postSuggestions } from '@/services/api/requests';
+import type { Suggestion } from '@/types/types';
 
 const useSuggestions = (cityQuery: string) => {
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);

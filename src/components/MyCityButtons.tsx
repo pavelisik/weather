@@ -1,5 +1,5 @@
-import useGeoLocation from '../hooks/useGeoLocation';
-import useIPLocation from '../hooks/useIPLocation';
+import useGeoLocation from '@/hooks/useGeoLocation';
+import useIPLocation from '@/hooks/useIPLocation';
 import styles from './MyCityButtons.module.css';
 
 interface Coords {
@@ -34,8 +34,12 @@ const MyCityButtons = ({ onCitySelect, onCoordsSelect }: MyCityButtonsProps) => 
         <>
             <h2>Погода в моем городе</h2>
             <div className={styles.buttons}>
-                <button onClick={handleGeoClick}>Определение по геолокации</button>
-                <button onClick={handleIPClick}>Определение по IP</button>
+                <button className="button" onClick={handleGeoClick}>
+                    Определить по геолокации
+                </button>
+                <button className="button" onClick={handleIPClick}>
+                    Определить по IP
+                </button>
             </div>
         </>
     );

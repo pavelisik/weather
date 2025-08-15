@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState, useRef } from 'react';
-import useSuggestions from '../hooks/useSuggestions';
-import useClickOutside from '../hooks/useClickOutside';
+import useSuggestions from '@/hooks/useSuggestions';
+import useClickOutside from '@/hooks/useClickOutside';
 import CitySuggestions from './CitySuggestions';
-import { showWarning } from '../utils/toast';
+import { showWarning } from '@/utils/toast';
 import styles from './MainForm.module.css';
 
 interface CityForm {
@@ -77,7 +77,7 @@ const MainForm = ({ onCitySelect, onCoordsSelect }: MainFormProps) => {
     return (
         <div className={styles.mainForm}>
             <form onSubmit={handleSubmit(onSubmit, onError)} noValidate autoComplete="off">
-                <h2>Поиск по названию города</h2>
+                {/* <h2>Поиск по названию города</h2> */}
                 <div className={styles.inputWrapper} ref={wrapperRef}>
                     <input
                         type="text"
@@ -93,9 +93,11 @@ const MainForm = ({ onCitySelect, onCoordsSelect }: MainFormProps) => {
                         aria-invalid={!!errors.city}
                     />
                     {/* вывод автокомплита */}
-                    {isOpen && suggestions.length > 0 && <CitySuggestions suggestions={suggestions} onSelect={handleSelect} />}
+                    {isOpen && suggestions.length > 0 && (
+                        <CitySuggestions suggestions={suggestions} onSelect={handleSelect} />
+                    )}
                 </div>
-                <button type="submit" className={styles.submit}>
+                <button type="submit" className={clsx('button', styles.mainButton)}>
                     Показать погоду
                 </button>
             </form>

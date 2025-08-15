@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Weather, Suggestion } from '../../types/types';
+import type { Weather, Suggestion } from '@/types/types';
 
 const weatherKey = '0fea97d4acece8a4418f2876d03b4419';
 const suggestionToken = '038cf03c0fcdeaf71d01807fc055484d186fdf0e';

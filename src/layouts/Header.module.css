@@ -1,19 +1,16 @@
 .header {
     background-color: #ffffff;
-    color: #4e4e4e;
     width: 100%;
     padding: 15px 0 20px 0;
-    margin-bottom: 20px;
+    margin-bottom: 17px;
     box-shadow: 0 1px 2px #0000001a;
 }
 
 .header h1 {
     line-height: 100%;
-    font-weight: lighter;
     font-size: 3.3rem;
     margin-bottom: 3px;
 }
 
 .header p {
-    font-weight: lighter;
 }

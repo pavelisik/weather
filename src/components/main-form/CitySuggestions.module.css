@@ -3,19 +3,16 @@
     left: 0;
     right: 0;
     z-index: 1001;
-    color: #333;
     background: #fff;
     border-top: none;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 12px 12px;
     box-shadow: 0 0 0 1px #0000000a, 0 4px 4px #0000000a, 0 20px 40px #00000014;
-    /* box-shadow: 0 4px 4px #0000000a, 0 20px 40px #00000014; */
     padding: 0;
     overflow: hidden;
     list-style: none;
 }
 
 .suggestions li {
-    background-color: #ffffff;
     text-align: left;
     line-height: 44px;
     padding: 0 20px;
@@ -23,8 +20,12 @@
     transition: background-color 0.15s ease-in-out;
 }
 
+.suggestions li:first-child {
+    padding-top: 3px;
+}
+
 .suggestions li:last-child {
-    padding-bottom: 7px;
+    padding-bottom: 3px;
 }
 
 .suggestions li:hover {

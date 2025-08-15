@@ -114,7 +114,7 @@ export interface Weather {
         id: number;
         main: string;
         description: string;
-        icon: number;
+        icon: string;
     }[];
     base: string;
     main: {

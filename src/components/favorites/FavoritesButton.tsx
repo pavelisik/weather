@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import style from './FavoritesButton.module.css';
+import styles from './FavoritesButton.module.css';
 
 interface CityInStorage {
     name: string;
@@ -44,7 +44,7 @@ const FavoritesButton = ({ city, latC, lonC, favoriteCities, setFavoriteCities }
         <button
             type="button"
             onClick={toggleFavorite}
-            className={clsx(style.favoriteIcon, isFavorite && style.isFavorite)}
+            className={clsx(styles.favoriteIcon, isFavorite && styles.isFavorite)}
             title={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
         >
             ★

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import useWeather from '../hooks/useWeather';
-import MyCityButtons from '../components/MyCityButtons';
-import MainForm from '../components/MainForm';
-import FavoritesList from '../components/FavoritesList';
-import WeatherInfoBlock from '../components/WeatherInfoBlock';
+import clsx from 'clsx';
+import useWeather from '@/hooks/useWeather';
+import MyCityButtons from '@/components/MyCityButtons';
+import MainForm from '@/components/main-form/MainForm';
+import FavoritesList from '@/components/favorites/FavoritesList';
+import WeatherCard from '@/components/weather-card/WeatherCard';
+import { translitIfLatin } from '@/utils/utils';
 import styles from './Content.module.css';
 
 interface CityInStorage {
@@ -24,7 +26,13 @@ const Content = () => {
     const [currentCity, setCurrentCity] = useState<string | undefined>(defaultCity);
     const [currentCoords, setCurrentCoords] = useState<Coords | null>(null);
     const [favoriteCities, setFavoriteCities] = useState<CityInStorage[]>([]);
-    const { weather, weatherLoading, weatherError } = useWeather(currentCoords ? undefined : currentCity, currentCoords?.lat, currentCoords?.lon);
+    const { weather, weatherLoading, weatherError } = useWeather(
+        currentCoords ? undefined : currentCity,
+        currentCoords?.lat,
+        currentCoords?.lon
+    );
+
+    const isNight = weather ? weather.dt < weather.sys.sunrise || weather.dt > weather.sys.sunset : false;
 
     // загружаем избранное из localStorage при монтировании
     useEffect(() => {
@@ -51,8 +59,9 @@ const Content = () => {
                 </div>
             </div>
             <div className={styles.rightColumn}>
-                <div className={styles.block}>
-                    <WeatherInfoBlock
+                {weather && <h1>Погода в городе {translitIfLatin(weather.name)} сейчас</h1>}
+                <div className={clsx(styles.block, isNight && styles.night)}>
+                    <WeatherCard
                         weather={weather}
                         loading={weatherLoading}
                         error={weatherError}

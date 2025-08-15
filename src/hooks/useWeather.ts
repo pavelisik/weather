@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getWeather } from '../services/api/requests';
-import type { Weather } from '../types/types';
+import { getWeather } from '@/services/api/requests';
+import type { Weather } from '@/types/types';
 
 const useWeather = (city?: string, lat?: number, lon?: number) => {
     const [weather, setWeather] = useState<Weather | null>(null);

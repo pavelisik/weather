@@ -1,5 +1,5 @@
 import styles from './CitySuggestions.module.css';
-import type { Suggestion } from '../types/types';
+import type { Suggestion } from '@/types/types';
 
 interface CitySuggestionsProps {
     suggestions: Suggestion[];
