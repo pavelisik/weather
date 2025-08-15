@@ -1,5 +1,8 @@
 import useGeoLocation from '@/hooks/useGeoLocation';
 import useIPLocation from '@/hooks/useIPLocation';
+import { RiComputerLine } from 'react-icons/ri';
+import { PiGpsFix } from 'react-icons/pi';
+
 import styles from './MyCityButtons.module.css';
 
 interface Coords {
@@ -32,12 +35,14 @@ const MyCityButtons = ({ onCitySelect, onCoordsSelect }: MyCityButtonsProps) => 
 
     return (
         <>
-            <h2>Погода в моем городе</h2>
+            {/* <h2>Погода в моем городе</h2> */}
             <div className={styles.buttons}>
                 <button className="button" onClick={handleGeoClick}>
+                    <PiGpsFix style={{ marginRight: '8px' }} size={18} />
                     Определить по геолокации
                 </button>
                 <button className="button" onClick={handleIPClick}>
+                    <RiComputerLine style={{ marginRight: '8px' }} size={18} />
                     Определить по IP
                 </button>
             </div>

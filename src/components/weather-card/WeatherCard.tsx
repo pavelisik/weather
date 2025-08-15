@@ -2,7 +2,6 @@ import { format } from 'date-fns';
 import { addSeconds } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import FavoritesButton from '@/components/favorites/FavoritesButton';
-import WeatherMap from './WeatherMap';
 import WeatherIcon from './WeatherIcon';
 import { translitIfLatin, numberPlus, hPaConvert } from '@/utils/utils';
 import styles from './WeatherCard.module.css';
@@ -29,6 +28,12 @@ function getCityTime(timezone: number): string {
     return format(cityTime, 'EEEE, d MMMM, HH:mm', { locale: ru });
 }
 
+// меняем первую букву на заглавную
+function capFirstLetter(str: string) {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 const WeatherCard = ({ weather, loading, error, favoriteCities, setFavoriteCities }: WeatherInfoBlockProps) => {
     return (
         <>
@@ -48,22 +53,41 @@ const WeatherCard = ({ weather, loading, error, favoriteCities, setFavoriteCitie
                         favoriteCities={favoriteCities}
                         setFavoriteCities={setFavoriteCities}
                     />
-                    <div className={styles.time}>{getCityTime(weather.timezone)}</div>
+                    <div className={styles.time}>{capFirstLetter(getCityTime(weather.timezone))}</div>
                     <div className={styles.temp}>{numberPlus(Math.round(weather.main.temp))}°</div>
                     <div className={styles.tempFeels}>
                         По ощущению: {numberPlus(Math.round(weather.main.feels_like))}°
                     </div>
 
-                    {/* <p>{weather.weather[0].description}</p> */}
+                    <div className={styles.desc}>{capFirstLetter(weather.weather[0].description)}</div>
 
-                    {/* <p>Ветер: {Math.round(weather.wind.speed * 10) / 10} м/с</p>
-                    <p>Давление: {hPaConvert(weather.main.pressure)} мм рт. ст.</p>
-                    <p>Влажность: {weather.main.humidity} %</p> */}
+                    <div className={styles.bottomParams}>
+                        <div className={styles.wind}>
+                            <div className={styles.text}>Ветер</div>
+                            <div className={styles.group}>
+                                <div className={styles.value}>{Math.round(weather.wind.speed * 10) / 10}</div>
+                                <div className={styles.units}>м/с</div>
+                            </div>
+                        </div>
+
+                        <div className={styles.humidity}>
+                            <div className={styles.text}>Влажность</div>
+                            <div className={styles.group}>
+                                <div className={styles.value}>{weather.main.humidity}</div>
+                                <div className={styles.units}>%</div>
+                            </div>
+                        </div>
+                        <div className={styles.pressure}>
+                            <div className={styles.text}>Давление</div>
+                            <div className={styles.group}>
+                                <div className={styles.value}>{hPaConvert(weather.main.pressure)}</div>
+                                <div className={styles.units}>мм рт. ст.</div>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* {weather.rain && <p>Осадки: {weather.rain['1h']} мм/ч</p>}
                     {weather.snow && <p>Снег: {weather.snow['1h']} мм/ч</p>} */}
-
-                    {weather && <WeatherMap className={styles.map} lat={weather.coord.lat} lon={weather.coord.lon} />}
 
                     {/* <p>Идентификатор погодных условий: {weather.weather['0'].id}</p>
                     <p>Группа погодных параметров (Дождь, Снег, Облачность и т. д.): {weather.weather['0'].main}</p>

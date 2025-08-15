@@ -5,6 +5,7 @@ import MyCityButtons from '@/components/MyCityButtons';
 import MainForm from '@/components/main-form/MainForm';
 import FavoritesList from '@/components/favorites/FavoritesList';
 import WeatherCard from '@/components/weather-card/WeatherCard';
+import WeatherMap from '@/components/weather-card/WeatherMap';
 import { translitIfLatin } from '@/utils/utils';
 import styles from './Content.module.css';
 
@@ -45,8 +46,6 @@ const Content = () => {
             <div className={styles.leftColumn}>
                 <div className={styles.block}>
                     <MainForm onCitySelect={setCurrentCity} onCoordsSelect={setCurrentCoords} />
-                </div>
-                <div className={styles.block}>
                     <MyCityButtons onCitySelect={setCurrentCity} onCoordsSelect={setCurrentCoords} />
                 </div>
                 <div className={styles.block}>
@@ -60,7 +59,7 @@ const Content = () => {
             </div>
             <div className={styles.rightColumn}>
                 {weather && <h1>Погода в городе {translitIfLatin(weather.name)} сейчас</h1>}
-                <div className={clsx(styles.block, isNight && styles.night)}>
+                <div className={clsx(styles.block, styles.fixed, isNight && 'night')}>
                     <WeatherCard
                         weather={weather}
                         loading={weatherLoading}
@@ -68,6 +67,7 @@ const Content = () => {
                         favoriteCities={favoriteCities}
                         setFavoriteCities={setFavoriteCities}
                     />
+                    {weather && <WeatherMap lat={weather.coord.lat} lon={weather.coord.lon} />}
                 </div>
             </div>
         </div>

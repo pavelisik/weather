@@ -1,19 +1,25 @@
-import { YMaps, Map, Placemark } from '@iminside/react-yandex-maps';
+import { YMaps, Map } from '@iminside/react-yandex-maps';
+import styles from './WeatherMap.module.css';
 
 interface WeatherMapProps {
     lat: number;
     lon: number;
-    className?: string;
 }
 
-const WeatherMap = ({ lat, lon, className }: WeatherMapProps) => (
-    <div className={className}>
-        <YMaps>
-            <Map defaultState={{ center: [lat, lon], zoom: 10 }} width="100%" height="300px">
-                <Placemark geometry={[lat, lon]} />
-            </Map>
-        </YMaps>
-    </div>
-);
+const WeatherMap = ({ lat, lon }: WeatherMapProps) => {
+    return (
+        <div className={styles.mapWrapper}>
+            <YMaps>
+                <Map
+                    defaultState={{ center: [lat, lon], zoom: 10 }}
+                    options={{
+                        suppressMapOpenBlock: true,
+                    }}
+                    className={styles.weatherMap}
+                />
+            </YMaps>
+        </div>
+    );
+};
 
 export default WeatherMap;

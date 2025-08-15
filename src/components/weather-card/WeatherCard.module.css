@@ -1,23 +1,76 @@
 .weatherInfo {
     position: relative;
-}
-
-.weatherInfo p {
-    font-size: 0.8rem;
-}
-
-.temp {
-    font-size: 100px;
-    line-height: 108px;
-}
-
-.tempFeels {
+    height: 260px;
 }
 
 .time {
     font-size: 24px;
 }
 
-.map {
-    margin-top: 50px;
+.temp {
+    font-size: 100px;
+    line-height: 108px;
+    padding-left: 120px;
+    padding-top: 10px;
+}
+
+.tempFeels {
+    padding-left: 120px;
+}
+
+.desc {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 200px;
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.bottomParams {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 30px;
+    padding-left: 170px;
+}
+
+.bottomParams div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.bottomParams .group {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: flex-end;
+}
+
+.bottomParams .wind .units {
+    padding-left: 4px;
+}
+
+.bottomParams .pressure .units {
+    padding-left: 6px;
+}
+
+.bottomParams .humidity .units {
+    padding-left: 1px;
+}
+
+.bottomParams .text {
+    text-align: left;
+}
+
+.bottomParams .value {
+    font-size: 32px;
+    line-height: 35px;
+    text-align: left;
+    vertical-align: bottom;
+    max-width: fit-content;
 }

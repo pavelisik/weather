@@ -1,21 +1,23 @@
-.mainForm {
-}
-
 .inputWrapper {
     position: relative;
+    z-index: 4;
 }
 
 .city {
     color: #333;
-    background: #f7f7f7;
+    background-color: #f7f7f7;
     height: 64px;
     line-height: 40px;
     width: 100%;
     padding: 0 20px;
     border-radius: 12px;
-    border: none;
+    border: 1px solid #ededed;
     outline: none;
-    transition: background 0.3s;
+    transition: background-color 0.3s;
+}
+
+.city::placeholder {
+    opacity: 0.9;
 }
 
 .withSuggestions,
@@ -23,7 +25,8 @@
 .city:focus,
 .city:active {
     box-shadow: 0 0 0 1px #0000000a, 0 4px 4px #0000000a, 0 20px 40px #00000014;
-    background: #ffffff;
+    background-color: #ffffff;
+    border: 1px solid #fff;
 }
 
 .withSuggestions {
@@ -31,6 +34,27 @@
 }
 
 .mainButton {
-    margin-top: 25px;
-    width: 400px;
+    margin-top: 15px;
+    width: 240px;
+    height: 44px;
+    background-image: linear-gradient(to top, #f5a12f, #fabf3f);
+    font-weight: 700;
+    border: none;
+    color: #fff;
+    transition: opacity 0.3s;
+    padding: 10px 20px;
+}
+
+.mainButton:hover {
+    box-shadow: inset 0 100px #ffffff1a;
+}
+
+.searchOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #0000001a;
+    z-index: 3;
 }

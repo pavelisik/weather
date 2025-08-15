@@ -66,5 +66,5 @@ export const weatherIconMap: Record<number, { day: string; night: string }> = {
     801: { day: 'partly-cloudy-day.svg', night: 'partly-cloudy-night.svg' },
     802: { day: 'cloudy.svg', night: 'cloudy.svg' },
     803: { day: 'overcast-day.svg', night: 'overcast-night.svg' },
-    804: { day: 'overcast.svg', night: 'overcast.svg' },
+    804: { day: 'overcast-day.svg', night: 'overcast-night.svg' },
 };

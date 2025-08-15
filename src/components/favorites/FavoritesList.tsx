@@ -1,3 +1,4 @@
+import { GoTrash } from 'react-icons/go';
 import styles from './FavoritesList.module.css';
 
 interface CityInStorage {
@@ -49,7 +50,7 @@ const FavoritesList = ({ favoriteCities, setFavoriteCities, onCitySelect, onCoor
                 <>
                     <ul className={styles.favoritesList}>
                         {favoriteCities.map(({ name, lat, lon }) => (
-                            <li key={`${name}`} onClick={() => handleClick(name)}>
+                            <li key={`${name}`} onClick={() => handleClick(name)} title="Показать погоду">
                                 {name}{' '}
                                 <button
                                     className={styles.closeButton}
@@ -57,8 +58,9 @@ const FavoritesList = ({ favoriteCities, setFavoriteCities, onCitySelect, onCoor
                                         e.stopPropagation();
                                         removeFavorite(name);
                                     }}
+                                    title="Удалить из избранного"
                                 >
-                                    ✕
+                                    <GoTrash />
                                 </button>
                             </li>
                         ))}

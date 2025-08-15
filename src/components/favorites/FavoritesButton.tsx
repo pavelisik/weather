@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { GoStarFill } from 'react-icons/go';
+import { IoHeartOutline } from 'react-icons/io5';
+
 import styles from './FavoritesButton.module.css';
 
 interface CityInStorage {
@@ -47,7 +50,8 @@ const FavoritesButton = ({ city, latC, lonC, favoriteCities, setFavoriteCities }
             className={clsx(styles.favoriteIcon, isFavorite && styles.isFavorite)}
             title={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
         >
-            ★
+            {/* <GoStarFill /> */}
+            <IoHeartOutline />
         </button>
     );
 };

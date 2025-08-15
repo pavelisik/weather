@@ -65,6 +65,8 @@ const MainForm = ({ onCitySelect, onCoordsSelect }: MainFormProps) => {
         onCoordsSelect(null);
         onCitySelect(data.city);
         reset();
+        setIsOpen(false);
+        // (document.activeElement as HTMLElement)?.blur();
     };
 
     // вывод ошибок обработки формы
@@ -75,9 +77,8 @@ const MainForm = ({ onCitySelect, onCoordsSelect }: MainFormProps) => {
     };
 
     return (
-        <div className={styles.mainForm}>
+        <div>
             <form onSubmit={handleSubmit(onSubmit, onError)} noValidate autoComplete="off">
-                {/* <h2>Поиск по названию города</h2> */}
                 <div className={styles.inputWrapper} ref={wrapperRef}>
                     <input
                         type="text"
@@ -97,6 +98,7 @@ const MainForm = ({ onCitySelect, onCoordsSelect }: MainFormProps) => {
                         <CitySuggestions suggestions={suggestions} onSelect={handleSelect} />
                     )}
                 </div>
+                {isOpen && <div className={styles.searchOverlay}></div>}
                 <button type="submit" className={clsx('button', styles.mainButton)}>
                     Показать погоду
                 </button>

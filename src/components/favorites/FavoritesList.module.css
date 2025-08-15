@@ -1,20 +1,39 @@
 .favoritesList {
     text-align: left;
     padding: 0px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    height: 290px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .favoritesList li {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    align-items: center;
     cursor: pointer;
+    padding: 3px 10px 3px 15px;
+    border-radius: 5px;
 }
 
 .favoritesList li:hover {
-    color: olive;
+    background-color: #f7f7f7;
 }
 
 .closeButton {
+    color: #afafaf;
+    font-size: 20px;
+    padding: 5px;
     cursor: pointer;
     border: none;
+    background: transparent;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.closeButton:hover {
+    color: #333;
+    background-color: #f7f7f7;
+    border-radius: 5px;
 }

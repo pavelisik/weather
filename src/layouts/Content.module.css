@@ -1,7 +1,7 @@
 .content {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
 }
 
@@ -19,15 +19,18 @@
 }
 
 .block {
-    padding: 20px 20px 30px 20px;
+    padding: 20px 40px;
     margin: 20px;
     background-color: #ffffff;
-    border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px;
     border-radius: 16px;
 }
 
-.night {
+.fixed {
+    height: 640px;
+}
+
+:global(.night) {
     background: linear-gradient(164deg, #000000c7, #66666600);
     color: #ffffff;
 }

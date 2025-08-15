@@ -14,7 +14,7 @@
 }
 
 :global(.Toastify__toast-icon svg) {
-    fill: rgb(223, 182, 96);
+    fill: #f9bf50;
 }
 
 :global(.Toastify__close-button) {
