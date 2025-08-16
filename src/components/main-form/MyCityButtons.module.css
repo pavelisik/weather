@@ -5,3 +5,13 @@
     align-items: center;
     margin-top: 10px;
 }
+
+.geoButton svg {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.ipButton svg {
+    font-size: 18px;
+    flex-shrink: 0;
+}

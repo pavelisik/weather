@@ -62,7 +62,16 @@ const WeatherCard = ({ weather, loading, error, favoriteCities, setFavoriteCitie
             {loading && showSkeleton ? (
                 <div className={styles.weatherInfoSkeleton}>Загрузка данных...</div>
             ) : error ? (
-                <p>{error}</p>
+                <div className={styles.error}>
+                    {error === 'Город не найден' ? (
+                        <>
+                            <p>{error}</p>
+                            <p>Попробуйте ввести название еще раз</p>
+                        </>
+                    ) : (
+                        <p>{error}</p>
+                    )}
+                </div>
             ) : (
                 weather && (
                     <div className={styles.weatherInfo}>

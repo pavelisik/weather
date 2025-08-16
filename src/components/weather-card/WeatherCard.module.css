@@ -84,3 +84,8 @@
     height: 260px;
     opacity: 0.5;
 }
+
+.error {
+    margin-top: 20px;
+    opacity: 0.5;
+}

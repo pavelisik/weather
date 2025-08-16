@@ -66,7 +66,6 @@ const MainForm = ({ onCitySelect, onCoordsSelect }: MainFormProps) => {
         onCitySelect(data.city);
         reset();
         setIsOpen(false);
-        // (document.activeElement as HTMLElement)?.blur();
     };
 
     // вывод ошибок обработки формы
