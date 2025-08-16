@@ -41,8 +41,6 @@ const FavoritesList = ({ favoriteCities, setFavoriteCities, onCitySelect, onCoor
         setFavoriteCities([]);
     };
 
-    // if (favoriteCities.length === 0) return <p>Нет избранных городов</p>;
-
     return (
         <>
             <h2>Избранные города</h2>
@@ -70,7 +68,7 @@ const FavoritesList = ({ favoriteCities, setFavoriteCities, onCitySelect, onCoor
                     </button>
                 </>
             ) : (
-                <p>Нет избранных городов</p>
+                <p className={styles.empty}>Нет избранных городов</p>
             )}
         </>
     );

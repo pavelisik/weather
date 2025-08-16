@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import useWeather from '@/hooks/useWeather';
-import MyCityButtons from '@/components/MyCityButtons';
+import MyCityButtons from '@/components/main-form/MyCityButtons';
 import MainForm from '@/components/main-form/MainForm';
 import FavoritesList from '@/components/favorites/FavoritesList';
 import WeatherCard from '@/components/weather-card/WeatherCard';
@@ -58,7 +58,13 @@ const Content = () => {
                 </div>
             </div>
             <div className={styles.rightColumn}>
-                {weather && <h1>Погода в городе {translitIfLatin(weather.name)} сейчас</h1>}
+                {weatherLoading ? (
+                    <div className={styles.h1Skeleton}></div>
+                ) : weatherError ? (
+                    <h1>Ошибка загрузки данных</h1>
+                ) : (
+                    weather && <h1>Погода в городе {translitIfLatin(weather.name)}</h1>
+                )}
                 <div className={clsx(styles.block, styles.fixed, isNight && 'night')}>
                     <WeatherCard
                         weather={weather}
